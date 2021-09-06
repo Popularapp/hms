@@ -500,30 +500,30 @@ router.get('/signup', function(req, res, next) {
 router.get('/getOTP/:email',function(req,res,next){
   var otp = Math.floor(Math.random()*100000);
   var email = req.params.email;
-  var nodemailer = require('nodemailer');
-
-      var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-            user: 'choudharyaabhas13@gmail.com',			//email ID
-            pass: 'Ilovekiddomore1@'				//Password 
-          }
-      });
-
-      var details = {
-        from: 'choudharyaabhas13@gmail.com', // sender address same as above
-        to: email, 					// Receiver's email id
-        subject: 'Email Verification:',
-        text: 'Your Ome Time Password is:' + otp					// Sending OTP 
-      };
-
-
-      transporter.sendMail(details, function (error, data) {
-        if(error)
-          console.log(error)
-        else
-          console.log(data);
-        });
+  // var nodemailer = require('nodemailer');
+      //
+      // var transporter = nodemailer.createTransport({
+      // service: 'gmail',
+      // auth: {
+      //       user: 'choudharyaabhas13@gmail.com',			//email ID
+      //       pass: 'Ilovekiddomore1@'				//Password
+      //     }
+      // });
+      //
+      // var details = {
+      //   from: 'choudharyaabhas13@gmail.com', // sender address same as above
+      //   to: email, 					// Receiver's email id
+      //   subject: 'Email Verification:',
+      //   text: 'Your Ome Time Password is:' + otp					// Sending OTP
+      // };
+      //
+      //
+      // transporter.sendMail(details, function (error, data) {
+      //   if(error)
+      //     console.log(error)
+      //   else
+      //     console.log(data);
+      //   });
   res.jsonp(otp);
 });
 
