@@ -18,7 +18,7 @@ var doctorRouter = require('./routes/doctor');
 
 var app = express();
 
-app.listen('3000');
+// app.listen('3000');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
