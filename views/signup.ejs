@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hospital management system</title>
+
+	<link rel = "icon" href = "/images/logo_hospital_white.png" type = "image/x-icon">
+
+	<!--Font Awesome Link-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+	<!---->
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="path/to/chartjs/dist/Chart.min.css">
+	
+	<!--Bootstrap CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+	crossorigin="anonymous">
+	<!---->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+	<style type="text/css">
+		html body {
+			margin: 0;
+			padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: url(/images/Sign-up.jpg);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: top;
+            scroll-behavior: smooth;
+		}
+    </style>
+    
+</head>
+<body>
+    
+    <a href="/"><img src="/images/logo_hospital_black.png" alt="" width="40px"></a>
+		<div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <%- messages('messages', locals) %>
+		
+                    <% if(errors) {%>
+                        <% errors.forEach(function(error){ %>
+                        <div class="alert alert-danger"><%= error.msg %></div>
+                        <% }); %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 c1">
+                <h3 style="text-align: center;
+                font-family: 'Alata', sans-serif;font-weight: 600;">SIGNUP</h3>
+                <div class="container">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <select name="signUp_as" class="form-control" id="signUp_as">
+                                <option>Signup as</option>
+                                <option value="patient">Patient</option>
+                                <option value="doctor">Doctor</option>
+                            </select>
+                          </div>
+                        <div class="form-group">
+                          <input type="text" name="name" id="name" class="form-control" placeholder="Enter your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" onkeyup="checkEmail()" class="form-control" placeholder="Enter your Email" required>
+                            <small id="checkingEmail" class="form-text" style="text-align: center;"></small>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="phone_no" id="phone" onkeyup="checkPhone()" class="form-control" minlength="10" maxlength="10" placeholder="Enter your Phone Number" required>
+                            <small id="checkingPhone" class="form-text" style="text-align: center;"></small>
+                          </div>
+                          <div class="form-group">
+                              <input type="password" name="password" id="password" class="form-control" placeholder="Enter a eight letter password" minlength="8" maxlength="8" required>
+                          </div>
+                          <div class="form-group">
+                            <input type="password" name="cpassword" onkeyup="check()" id="cpassword" class="form-control" placeholder="Confirm password" minlength="8" maxlength="8" required>
+                            <small id="checking" class="form-text" style="text-align: center;"></small>
+                        </div>
+                        <p style="text-align: center;">Enter Your Age and Date of Birth</p>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <input type="number" name="age" id="age" class="form-control" placeholder="Age" required>
+                                </div>        
+                            </div>
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <input type="date" name="dob" id="dob" class="form-control" required>
+                                </div>        
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select name="gender" class="form-control" id="gender">
+                                <option>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">Others</option>
+                            </select>
+                          </div>
+                
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content" style="border: 0;border-radius: 20px;">
+                                <div class="modal-header" style="background-color: #1b8d82;border-radius: 20px 20px 0px 0px;">
+                                  <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 400;text-align: center;color: white;">OTP Verification</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="color: white;">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="text-align: center;">An OTP is sent to your respective email id</p>
+                                    <div class="form-group">
+                                        <input type="number" name="otp" id="otp" onkeyup="checkOtp()" class="form-control" placeholder="Enter The OTP" required>
+                                        <small id="checkingOTP" class="form-text" style="text-align: center;"></small>
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary b1" id="submitButton" disabled>Submit</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </form>
+                    <button class="btn btn-primary b1" id="verifyButton" onclick="verify()" >Verify</button>
+                        <br>
+                    <br>
+                    <p style="text-align: center;font-weight: 300;">Already have an account</p>
+                    <a href="/login" class="btn btn-primary b1">LOGIN</a>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12"></div>
+        </div>
+    </div>
+
+    <!--Bootstrap links-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!---->
+    <script src="/javascripts/main.js"></script>
+    <script>
+        var o;
+        function verify(){
+            var signUp_as = document.getElementById('signUp_as').value;
+            var gender = document.getElementById('gender').value;
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var password = document.getElementById('password').value;
+            var cpassword = document.getElementById('cpassword').value;
+            var age = document.getElementById('age').value;
+            var dob = document.getElementById('dob').value;
+            if((signUp_as == "patient" || signUp_as == "doctor") && name != "" && email != "" && phone != "" && password != "" && cpassword != "" && age != "" && dob != "" && (gender == "male" || gender == "female" || gender == "others")){
+                if(document.getElementById('checking').innerHTML != "" && document.getElementById('checkingEmail').innerHTML != "" && document.getElementById('checkingEmail').innerHTML != ""){
+                    alert('Please check your details. If some error correct it.');
+                    console.log('hello');
+                } else {
+                    $.ajax({
+                        url:"getOTP/" + email,
+                        dataType: "jsonp",
+                        type:"GET",
+                        success: function(data){
+                            console.log('got it');
+                            o=data;
+                        },
+                        error: function(err){
+                        console.log(err.status);
+                        }
+                    });
+                    $("#exampleModalCenter").modal('toggle');
+                }
+            } else {
+                alert('Please fill all the values');
+            }
+        }
+       function check() {
+            var a = document.getElementById('cpassword').value;
+            var b = document.getElementById('password').value;
+            if(a != b){
+                document.getElementById('checking').innerHTML = "Password dosen't Matches";
+                document.getElementById('checking').style.color = "rgb(255, 31, 31)";
+                $('#verifyButton').attr("disabled","disabled");
+            } else {
+                document.getElementById('checking').innerHTML = "";
+                document.getElementById('checking').style.color = "rgb(35, 245, 70)";
+                $('#verifyButton').removeAttr("disabled");
+            }
+       }
+       function checkOtp() {
+           var a = document.getElementById('otp').value;
+           var b = parseInt(a);
+           console.log(typeof b);
+           console.log(typeof o);
+               if(b == o){
+                    $('#submitButton').removeAttr("disabled");
+                    document.getElementById('checkingOTP').innerHTML = "OTP verified";
+                    document.getElementById('checkingOTP').style.color = "rgb(102, 255, 102)";
+               } else {
+                    $('#submitButton').attr("disabled","disabled");
+                    document.getElementById('checkingOTP').innerHTML = "OTP dosenot match";
+                    document.getElementById('checkingOTP').style.color = "rgb(255, 31, 31)";
+               }
+       }
+       function checkEmail() {
+           var b = document.getElementById('email').value;
+           var c = document.getElementById('signUp_as').value;
+           if(c == "patient"){
+                $.ajax({
+                    url:"searchEmail/" + b,
+                    dataType: "jsonp",
+                    type:"GET",
+                    success: function(data){
+                        console.log(data[0]);
+                        if(data[0] != undefined){ 
+                            document.getElementById('checkingEmail').innerHTML = "Email Already Exists";
+                            document.getElementById('checkingEmail').style.color = "rgb(255, 31, 31)";
+                            $('#verifyButton').attr("disabled","disabled");
+                        } else {
+                            document.getElementById('checkingEmail').innerHTML = "";
+                            $('#verifyButton').removeAttr("disabled");
+                        }
+                    },
+                    error: function(err){
+                    console.log(err.status);
+                    }
+            });
+           } else if(c == "doctor") {
+                $.ajax({
+                        url:"searchEmailDoctor/" + b,
+                        dataType: "jsonp",
+                        type:"GET",
+                        success: function(data){
+                            console.log(data[0]);
+                            if(data[0] != undefined){ 
+                                document.getElementById('checkingEmail').innerHTML = "Email Already Exists";
+                                document.getElementById('checkingEmail').style.color = "rgb(255, 31, 31)";
+                                $('#verifyButton').attr("disabled","disabled");
+                            } else {
+                                document.getElementById('checkingEmail').innerHTML = "";
+                                $('#verifyButton').removeAttr("disabled");
+                            }
+                        },
+                        error: function(err){
+                        console.log(err.status);
+                        }
+                });
+           }
+       }
+       function checkPhone() {
+           var b = document.getElementById('phone').value;
+           var c = document.getElementById('signUp_as').value;
+           if(b.length == 10){
+            if(c == "patient"){
+                    $.ajax({
+                        url:"searchPhone/" + b,
+                        dataType: "jsonp",
+                        type:"GET",
+                        success: function(data){
+                            console.log(data[0]);
+                            if(data[0] != undefined){ 
+                                document.getElementById('checkingPhone').innerHTML = "Phone Number Already Exists";
+                                document.getElementById('checkingPhone').style.color = "rgb(255, 31, 31)";
+                                $('#verifyButton').attr("disabled","disabled");
+                            } else {
+                                document.getElementById('checkingPhone').innerHTML = "";
+                                $('#verifyButton').removeAttr("disabled");
+                            }
+                        },
+                        error: function(err){
+                        console.log(err.status);
+                        }
+                });
+            } else if(c == "doctor") {
+                    $.ajax({
+                        url:"searchPhoneDoctor/" + b,
+                        dataType: "jsonp",
+                        type:"GET",
+                        success: function(data){
+                            console.log(data[0]);
+                            if(data[0] != undefined){ 
+                                document.getElementById('checkingPhone').innerHTML = "Phone Number Already Exists";
+                                document.getElementById('checkingPhone').style.color = "rgb(255, 31, 31)";
+                                $('#verifyButton').attr("disabled","disabled");
+                            } else {
+                                document.getElementById('checkingPhone').innerHTML = "";
+                                $('#verifyButton').removeAttr("disabled");
+                            }
+                        },
+                        error: function(err){
+                        console.log(err.status);
+                        }
+                }); 
+            }
+           }
+       }
+    </script>
+    
+</body>
+</html> 

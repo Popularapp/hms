@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hospital management system</title>
+
+	<link rel = "icon" href = "/images/logo_hospital_white.png" type = "image/x-icon">
+
+	<!--Font Awesome Link-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+	<!---->
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="path/to/chartjs/dist/Chart.min.css">
+	
+	<!--Bootstrap CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+	crossorigin="anonymous">
+	<!---->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+	<style type="text/css">
+		html body {
+			margin: 0;
+			padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: url(/images/new5.jpg);
+            background-repeat: no-repeat;
+            background-position: top;
+            scroll-behavior: smooth;
+		}
+    </style>
+    
+</head>
+<body>
+    
+    <a href="/"><img src="/images/logo_hospital_black.png" alt="" width="40px"></a>
+    <br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8"></div>
+            <div class="col-4">
+                <%- messages('messages', locals) %>
+    
+                <% if(errors) {%>
+                    <% errors.forEach(function(error){ %>
+                    <div class="alert alert-danger"><%= error.msg %></div>
+                    <% }); %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+        
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12"></div>
+            <div class="col-lg-4 col-md-12 c1">
+                <h1 style="text-align: center;
+                font-family: 'Alata', sans-serif;font-weight: 600;">LOGIN</h1>
+                <br>
+                <div class="container">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <select name="login_as" class="form-control" id="">
+                                <option>Login as</option>
+                                <option value="admin">Admin</option>
+                                <option value="patient">Patient</option>
+                                <option value="doctor">Doctor</option>
+                            </select>
+                          </div>
+                            <div class="form-group">
+                            <input type="text" name="name" id="" class="form-control" placeholder="Enter the Email or Phone Number">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" id="" class="form-control" placeholder="Enter the Password">
+                            </div>
+                        <br>
+                
+                        <button type="submit" class="btn btn-primary b1">LOGIN</button>
+                    </form>
+                    <br>
+                    <p style="text-align: center;font-weight: 300;">Don't have an account</p>
+                    <a href="/signup" class="btn btn-primary b1">SIGNUP</a>
+                    <br><br>
+                    <p style="color: #004BFF;text-align: center;">Forgot Password</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Bootstrap links-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!---->
+    <script src="/javascripts/main.js"></script>
+    
+</body>
+</html> 

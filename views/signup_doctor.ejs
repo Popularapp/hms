@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hospital management system</title>
+
+	<link rel = "icon" href = "/images/logo_hospital_white.png" type = "image/x-icon">
+
+	<!--Font Awesome Link-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+	<!---->
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="/stylesheets/style.css">
+	
+	<link rel="stylesheet" type="text/css" href="path/to/chartjs/dist/Chart.min.css">
+	
+	<!--Bootstrap CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+	crossorigin="anonymous">
+	<!---->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<style type="text/css">
+		html body {
+			margin: 0;
+			padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: url(/images/Sign-up.jpg);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: top;
+            background-color:#F7F7F7;
+            scroll-behavior: smooth;
+		}
+        .form-control {
+            border: 0;
+            background-color: #F0F0F0;
+            border-radius: 50px;
+            padding: 5px 20px;
+            height: 40px;
+            box-shadow: 8px 8px 10px rgb(0,0,0,0.1), -8px -8px 10px rgb(255,255,255,0.5);
+        }
+        .c1 {
+            background-color: #F0F0F0;
+            padding: 10px;
+            border-radius: 20px;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <%- messages('messages', locals) %>
+    
+                <% if(errors) {%>
+                    <% errors.forEach(function(error){ %>
+                    <div class="alert alert-danger"><%= error.msg %></div>
+                    <% }); %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 c1">
+                <h3 style="text-align: center;
+                font-family: 'Alata', sans-serif;font-weight: 600;text-transform: uppercase;">Complete Your SignUp</h3>
+                <br>
+                <div class="container">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <select name="degree" class="form-control" id="">
+                                <option>Degree</option>
+                                <option value="Bachelor of Medicine, Bachelor of Surgery (MBBS, BMBS, MBChB, MBBCh)">Bachelor of Medicine, Bachelor of Surgery (MBBS, BMBS, MBChB, MBBCh)</option>
+                                <option value="Doctor of Medicine (MD, Dr.MuD, Dr.Med)">Doctor of Medicine (MD, Dr.MuD, Dr.Med)</option>
+                                <option value="Doctor of Osteopathic Medicine (DO)">Doctor of Osteopathic Medicine (DO)</option>
+                                <option value="Doctor of Medicine by research (MD(Res), DM)">Doctor of Medicine by research (MD(Res), DM)</option>
+                                <option value="Doctor of Philosophy (PhD, DPhil)">Doctor of Philosophy (PhD, DPhil)</option>
+                                <option value="Master of Clinical Medicine (MCM)">Master of Clinical Medicine (MCM)</option>
+                                <option value="Master of Medical Science (MMSc, MMedSc)">Master of Medical Science (MMSc, MMedSc)</option>
+                                <option value="Master of Medicine (MM, MMed)">Master of Medicine (MM, MMed)</option>
+                                <option value="Master of Philosophy (MPhil)">Master of Philosophy (MPhil)</option>
+                                <option value="Master of Surgery (MS, MSurg, MChir, MCh, ChM, CM)">Master of Surgery (MS, MSurg, MChir, MCh, ChM, CM)</option>
+                                <option value="Master of Science in Medicine or Surgery (MSc)">Master of Science in Medicine or Surgery (MSc)</option>
+                                <option value="Doctor of Clinical Medicine (DCM)">Doctor of Clinical Medicine (DCM)</option>
+                                <option value="Doctor of Clinical Surgery (DClinSurg)">Doctor of Clinical Surgery (DClinSurg)</option>
+                                <option value="Doctor of Medical Science (DMSc, DMedSc)">Doctor of Medical Science (DMSc, DMedSc)</option>
+                                <option value="Doctor of Surgery (DS, DSurg)">Doctor of Surgery (DS, DSurg)</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <select name="college" class="form-control" id="">
+                                <option>College</option>
+                                <option value="All India Institute of Medical Sciences">All India Institute of Medical Sciences</option>
+                                <option value="Post Graduate Institute of Medical Education and Research">Post Graduate Institute of Medical Education and Research</option>
+                                <option value="Christian Medical College">Christian Medical College</option>
+                                <option value="Sanjay Gandhi Postgraduate Institute of Medical Sciences">Sanjay Gandhi Postgraduate Institute of Medical Sciences</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <select name="department" class="form-control" id="">
+                                <option>Select a Department</option>
+                                <% department.forEach(element => { %>
+                                  <option value="<%= element.title %>"><%= element.title %></option> 
+                                <% }); %>
+                            </select>
+                          </div>
+                          <p style="text-align: center;">Upload your Photo</p>
+                          <div class="form-group">
+                            <input type="file" class="form-control" name="image" id="img" required>
+                        </div>
+                        <p style="text-align: center;">Upload your Degree Pdf</p>
+                        <div class="form-group">
+                          <input type="file" class="form-control" name="degree_pdf" id="img" required>
+                      </div>
+                      <div class="form-group">
+                        <input type="text" name="experience" id="" class="form-control" placeholder="Intern's Hospital Name">
+                      </div>
+                      <p style="text-align: center;">Upload your Intern Certificate</p>
+                      <div class="form-group">
+                        <input type="file" class="form-control" name="intern_pdf" id="img" required>
+                    </div>
+                        <button type="submit" class="btn btn-primary" style="background-color: #1D4197; border: 0;
+                        box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                        padding: 8px;border-radius: 50px;">SUBMIT</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12"></div>
+        </div>
+    </div>
+
+    <!--Bootstrap links-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!---->
+    <script src="/javascripts/main.js"></script>
+    
+</body>
+</html> 

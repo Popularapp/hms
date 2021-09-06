@@ -1,0 +1,782 @@
+<%- include header %>
+<div class="modal fade" id="pin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="border: 0;border-radius: 20px;">
+        <div class="modal-header" style="background-color: #1b8d82;border-radius: 20px 20px 0px 0px;">
+          <h3 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 400;text-align: center;color: white;">SECURITY PIN</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color: white;">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+            <% if(data!=null){ %>
+                <% if(pin==null){ %>
+                    <div>
+                        <p>Looks like you logging first time into your dashboard.<br>Please genrate the Pin to secure your Dashboard</p>
+                        <br>
+                        <form action="/<%= login_as %>/<%= data._id %>/<%= admin %>/<%= loggedin %>/pin" method="POST">
+                            <div class="form-group">
+                                <input type="password" name="pin1" id="pin1" class="form-control" placeholder="Enter a six digit Pin" minlength="6" maxlength="6" required >
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="cpin" onkeyup="checkPin()" id="cpin" class="form-control" placeholder="Confirm password" minlength="6" maxlength="6" required>
+                                <small id="checkingPin" class="form-text" style="text-align: center;"></small>
+                            </div>
+                            <br>
+                    
+                            <button type="submit" class="btn btn-primary" id="verifyButton" style="background-color: #1D4197; border: 0;
+                            box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                            padding: 8px;border-radius: 50px;" disabled>Generate</button>
+                        </form>
+                    </div>
+                <% } else { %>
+                    <form action="/doctor/dashboard/<%= data._id %>" method="GET">
+                        <div class="form-group">
+                            <input type="password" name="pin1" id="pin2" onkeyup="enterPin()"  class="form-control" placeholder="Enter your Pin" minlength="6" maxlength="6" required >
+                            <small id="enteredPin1" class="form-text" style="text-align: center;"></small>
+                        </div>
+                        <input type="hidden" id="h1" name="" value="<%= data._id %>">
+                        <br>
+                
+                        <button type="submit" class="btn btn-primary" id="verifyButton2" style="background-color: #1D4197; border: 0;
+                        box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                        padding: 8px;border-radius: 50px;" disabled>Login To Dashboard</button>
+                    </form>
+                <% } %>
+            <% } %>   
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="pin6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="border: 0;border-radius: 20px;">
+        <div class="modal-header" style="background-color: #1b8d82;border-radius: 20px 20px 0px 0px;">
+          <h3 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 400;text-align: center;color: white;">SECURITY PIN</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color: white;">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+            <% if(data!=null){ %>
+                <% if(pin==null){ %>
+                    <div>
+                        <p>Looks like you logging first time into your dashboard.<br>Please genrate the Pin to secure your Dashboard</p>
+                        <br>
+                        <form action="/<%= login_as %>/<%= data._id %>/<%= admin %>/<%= loggedin %>/pin" method="POST">
+                            <div class="form-group">
+                                <input type="password" name="pin1" id="pin3" class="form-control" placeholder="Enter a six digit Pin" minlength="6" maxlength="6" required >
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="cpin3" onkeyup="checkPin3()" id="cpin3" class="form-control" placeholder="Confirm password" minlength="6" maxlength="6" required>
+                                <small id="checkingPin3" class="form-text" style="text-align: center;"></small>
+                            </div>
+                            <br>
+                    
+                            <button type="submit" class="btn btn-primary" id="verifyButton3" style="background-color: #1D4197; border: 0;
+                            box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                            padding: 8px;border-radius: 50px;" disabled>Generate</button>
+                        </form>
+                    </div>
+                <% } else { %>
+                    <form action="/patient/dashboard/<%= data._id %>" method="GET">
+                        <div class="form-group">
+                            <input type="password" name="pin1" id="pin8" onkeyup="enterPin1()"  class="form-control" placeholder="Enter your Pin" minlength="6" maxlength="6" required >
+                            <small id="enteredPin2" class="form-text" style="text-align: center;"></small>
+                        </div>
+                        <input type="hidden" id="h2" name="" value="<%= data._id %>">
+                        <br>
+                
+                        <button type="submit" class="btn btn-primary" id="verifyButton3" style="background-color: #1D4197; border: 0;
+                        box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                        padding: 8px;border-radius: 50px;" disabled>Login to Dashboard</button>
+                    </form>
+                <% } %>
+            <% } %>   
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="pin5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="border: 0;border-radius: 20px;">
+        <div class="modal-header" style="background-color: #1b8d82;border-radius: 20px 20px 0px 0px;">
+          <h3 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 400;text-align: center;color: white;">SECURITY PIN</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color: white;">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+            <% if(data!=null){ %>
+                <% if(pin==null){ %>
+                    <div>
+                        <p>Looks like you logging first time into your dashboard.<br>Please genrate the Pin to secure your Dashboard</p>
+                        <br>
+                        <form action="/<%= login_as %>/<%= data._id %>/<%= admin %>/<%= loggedin %>/pin" method="POST">
+                            <div class="form-group">
+                                <input type="password" name="pin1" id="pin4" class="form-control" placeholder="Enter a six digit Pin" minlength="6" maxlength="6" required >
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="cpin4" onkeyup="checkPin4()" id="cpin4" class="form-control" placeholder="Confirm password" minlength="6" maxlength="6" required>
+                                <small id="checkingPin4" class="form-text" style="text-align: center;"></small>
+                            </div>
+                            <br>
+                    
+                            <button type="submit" class="btn btn-primary" id="verifyButton4" style="background-color: #1D4197; border: 0;
+                            box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                            padding: 8px;border-radius: 50px;" disabled>Generate</button>
+                        </form>
+                    </div>
+                <% } else { %>
+                    <form action="/admin/dashboard/<%= data._id %>" method="GET">
+                        <div class="form-group">
+                            <input type="password" name="pin1" id="pin9" onkeyup="enterPin2()"  class="form-control" placeholder="Enter your Pin" minlength="6" maxlength="6" required >
+                            <small id="enteredPin3" class="form-text" style="text-align: center;"></small>
+                        </div>
+                        <input type="hidden" id="h3" name="" value="<%= data._id %>">
+                        <br>
+                
+                        <button type="submit" class="btn btn-primary" id="verifyButton4" style="background-color: #1D4197; border: 0;
+                        box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                        padding: 8px;border-radius: 50px;" disabled>Login To Dashboard</button>
+                    </form>
+                <% } %>
+            <% } %>   
+            </div>
+      </div>
+    </div>
+  </div>
+<br><br><br><br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-12" style="background-color: #F7F7F7;
+        padding: 20px 0px;border-radius: 20px;">
+            <h1 style="font-family: 'Alata', sans-serif;font-weight: 700;font-size: 50px;">YOUR</h1>
+            <h1 style="font-family: 'Alata', sans-serif;font-weight: 700;color: #FF2E3C;font-size: 50px;">HEALTH</h1>
+            <h1 style="font-family: 'Alata', sans-serif;font-weight: 700;font-size: 50px;">IS OUR</h1>
+            <h1 style="font-family: 'Alata', sans-serif;font-weight: 700;color: #1D4197;font-size: 50px;">PRIORITY</h1>
+        </div>
+        <div class="col-lg-8 col-md-12"></div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br>
+<div class="container-fluid c2" id="makeAppointment">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-12"></div>
+            <div class="col-lg-3 col-md-12" style="text-align: center;background-color: white;
+            border-radius: 40px;box-shadow: 0px 0px 15px rgb(0,0,0,0.2);margin-top: 50px;">
+                <img class="img2" src="/images/a1.png" alt="" width="120px">
+                <p style="font-family: 'Alata', sans-serif;font-weight: 300;font-size: 30px;
+                position: relative;top: -20px;">Make an<br>Appointment</p>
+                <br>
+                <a href="#mka" class="click" data-toggle="modal">Click</a>
+                <br><br>
+                <div class="modal fade" id="mka" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content" style="border: 0;border-radius: 20px;">
+                        <div class="modal-header" style="background-color: #1b8d82;border-radius: 20px 20px 0px 0px;border: 0;">
+                          <h3 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 400;text-align: center;color: white;">APPOINTMENT</h3>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="color: white;">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body" style="background-color: #111011;border-radius: 0px 0px 20px 20px;">
+                            <% if(loggedin==0){ %>
+                                <div>
+                                    <h3  style="color: white;">Please login first</h3>
+                                    <br>
+                                    <a href="/login" class="click" style="color: white;">Login</a>
+                                </div>
+                            <% } else { %>
+                                <form action="/appointment" method="POST">
+                                    <div class="form-group">
+                                        <select name="doctor" class="form-control" id="doctor">
+                                            <option>Select Doctor</option>
+                                            <% doctors.forEach(element => { %>
+                                                <option value="<%= element.name %>(<%= element.department%>)">Dr. <%= element.name %>(<%= element.department%>)</option> 
+                                            <% }); %>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <select name="day" class="form-control" id="day">
+                                            <option>Select Day</option>
+                                            <% days.forEach(element => { %>
+                                                <option value="<%= element.day %>"><%= element.day %></option> 
+                                            <% }); %>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <select name="day" class="form-control" id="time">
+                                            <option>Select Time</option>
+                                        </select>
+                                      </div>
+                                    <br>
+                            
+                                    <button type="submit" class="btn btn-primary" style="background-color: #1D4197; border: 0;
+                                    box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                                    padding: 8px;border-radius: 50px;">Book an appointment</button>
+                                </form>
+                            <% } %>   
+                            </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-lg-2 col-md-12"></div>
+            <div class="col-lg-3 col-md-12" style="text-align: center;background-color: white;
+            border-radius: 40px;box-shadow: 0px 0px 15px rgb(0,0,0,0.2);margin-top: 50px;">
+                <img class="img2" src="/images/a2.png" alt="" width="120px">
+                <p style="font-family: 'Alata', sans-serif;font-weight: 100;font-size: 30px;
+                position: relative;top: -20px;">Buy a<br>Medicine</p>
+                <br>
+                <a class="click">Click</a>
+                <br><br>
+            </div>
+            <div class="col-lg-2 col-md-12"></div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="container-fluid" id="aboutUs">
+        <br>
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-4" style="overflow: hidden;">
+                        <div style="width: 125px;height: 4px;
+                        background-color: #FF5E68;border-radius: 50px;margin-top: 10px;"></div>
+                    </div>
+                    <div class="col-8">
+                        <h4 style="color: #1D4197;">About Us</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 style="font-family: 'Alata';font-weight: 600;">WELCOME TO OUR HOSPITAL </h3>
+        <br>
+        <h5 style="text-align: justify;">Our Hospital is open to all patients every day and provides fundamental medical care and cutting-edge medicine. 
+            We use our superior academic knowledge to treat the wide range of health issues , taking a personal touch and 
+            utilizing highly specialized and up-to-date research. Your health and safety are our very highest priorities. We 
+            are ready to care for you and your family in our hospitals     
+        </h5>
+        <br>
+        <div class="container" style="width: 85%;">
+            <div class="row">
+                <div class="col-lg-6 col-md-12" style="overflow: hidden;">
+                    <div class="card3" style="background-color: white;
+                    border-radius: 20px;box-shadow: 0px 0px 10px rgb(0,0,0,0.1);
+                    margin-top: 20px;">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12" style="background-color: #FFC157;
+                            border-radius: 20px;text-align: center;">
+                                <img src="/images/logo3.png" alt="" style="margin-top: 20px;" width="100px">
+                            </div>
+                            <div class="col-lg-8 col-md-12" style="text-align: center;">
+                                <h3 style="text-align: center;
+                                font-family: 'Alata';font-weight: 300;padding: 40px 20px;">All Time<br>Ambulance</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12" style="overflow: hidden;">
+                    <div class="card3" style="background-color: white;
+                    border-radius: 20px;box-shadow: 0px 0px 10px rgb(0,0,0,0.1);
+                    margin-top: 20px;">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12" style="background-color: #1FB88F;border-radius: 20px;
+                            text-align: center;">
+                                <img src="/images/logo5.png" alt="" style="margin-top: 25px;" width="80px">
+                            </div>
+                            <div class="col-lg-8 col-md-12" style="text-align: center;">
+                                <h3 style="text-align: center;
+                                font-family: 'Alata';padding: 40px 20px;font-weight: 300;">Qualified<br>Doctors</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-12" style="overflow: hidden;">
+                    <div class="card3" style="background-color: white;
+                    border-radius: 20px;box-shadow: 0px 0px 10px rgb(0,0,0,0.1);
+                    margin-top: 20px;">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12" style="background-color: #7A61FF;border-radius: 20px;
+                            text-align: center;">
+                                <img src="/images/logo6.png" alt="" style="margin-top: 45px;" width="100px">
+                            </div>
+                            <div class="col-lg-8 col-md-12" style="text-align: center;">
+                                <h3 style="text-align: center;
+                                font-family: 'Alata';padding: 40px 20px;font-weight: 300;">Emergency<br>Care</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12" style="overflow: hidden;">
+                    <div class="card3" style="background-color: white;
+                    border-radius: 20px;box-shadow: 0px 0px 10px rgb(0,0,0,0.1);
+                    margin-top: 20px;">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12" style="background-color: #FF5B5B;border-radius: 20px;
+                            text-align: center;">
+                                <img src="/images/logo7.png" alt="" style="margin-top: 30px;" width="90px"></div>
+                            <div class="col-lg-8 col-md-12" style="text-align: center;">
+                                <h3 style="text-align: center;
+                                font-family: 'Alata';padding: 40px 20px;font-weight: 300;">Outdoor<br>Services</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="container-fluid" id="departments">
+    <br>
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-4" style="overflow: hidden;">
+                        <div style="width: 125px;height: 4px;
+                        background-color: #FF5E68;border-radius: 50px;margin-top: 10px;"></div>
+                    </div>
+                    <div class="col-8">
+                        <h4 style="color: #1D4197;">Departments</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 style="font-family: 'Alata';font-weight: 600;">YOUR HEALTH IS OUR DUTY </h3>
+    <br>
+    <div class="container">
+        <div class="row">
+            <% var counter = 0; %>
+            <%if(department.length !=0){%>
+                <% for(var j = 0;j<3;j++){ %>
+                    <% counter++; %>
+                    <div class="col-lg-4 col-md-12" style="margin-top: 20px;">
+                        <div class="card3" style="background-color:#F7F7F7; box-shadow: 8px 8px 10px rgba(0,0,0,0.05), -8px -8px 10px rgba(255,255,255,1);
+                border-radius: 20px;padding: 40px 25px;text-align: center;">
+                            <h4 style="font-family: 'Alata';font-weight: 400;text-align: center;"><%= (department[j]).title %></h4>
+                            <br>
+                            <h6 style="text-align: justify;color: #A7A7A7;"><%= (department[j]).explanation.slice(0,50) %>...</h6>
+                            <br>
+                            <a href="#exampleModalCenter<%= counter %>" type="button" class="click" data-toggle="modal" data-target="#exampleModalCenter<%= counter %>">
+                                Read More
+                            </a>
+                            <div class="modal fade" id="exampleModalCenter<%= counter %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content" style="border: 0;border-radius: 20px;">
+                                        <div class="modal-header" style="background-color: #1b8d82;border-radius: 20px 20px 0px 0px;">
+                                            <h4 style="font-family: 'Alata';font-weight: 400;text-align: center;color: white;"><%= (department[j]).title %> %></h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" style="color: white;">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6 style="text-align: justify;"><%= (department[j]).explanation %></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }; %>
+            <%}%>
+        </div>
+              <div class="collapse" id="collapseExample">
+                <div class="row">
+                    <% var counter1 = 4; %> 
+                    <% for(var j = 3;j<department.length;j++){ %>
+                    <% counter1++; %> 
+                    <div class="col-lg-4 col-md-12" style="margin-top: 20px;">
+                        <div class="card3" style="background-color:#F7F7F7; box-shadow: 8px 8px 10px rgb(0,0,0,0.05), -8px -8px 10px rgb(255,255,255,1);
+                        border-radius: 20px;padding: 40px 25px;text-align: center;">
+                            <h4 style="font-family: 'Alata';font-weight: 400;text-align: center;"><%= (department[j]).title %></h4>
+                            <br>
+                            <h6 style="text-align: justify;color: #A7A7A7;"><%= (department[j]).explanation.slice(0,50) %>...</h6>
+                            <br>  
+                            <a href="#exampleModalCenter<%= counter1 %>" type="button" class="click" data-toggle="modal" data-target="#exampleModalCenter<%= counter1 %>">
+                                Read More
+                            </a>
+                            <div class="modal fade" id="exampleModalCenter<%= counter1 %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content" style="border: 0;border-radius: 20px;">
+                                    <div class="modal-header" style="background-color: #1b8d82;border-radius: 20px 20px 0px 0px;">
+                                        <h4 style="font-family: 'Alata';font-weight: 400;text-align: center;color: white;"><%= (department[j]).title %> %></h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" style="color: white;">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6 style="text-align: justify;"><%= (department[j]).explanation %></h6>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                    <% }; %>
+                </div>
+              </div>
+        <div class="container" style="text-align: center;">
+            <br>
+            <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"
+            onclick="rotation()"
+            style="background-color: #2A69FF;color: rgb(255, 255, 255);padding: 10px 5px 10px 8px;border-radius: 50px;
+            text-decoration:none;box-shadow: 3px 5px 10px rgb(0,0,0,0.3);">Know More
+                <i class="fas fa-caret-down" id="icon0"
+                    style="background-color: #F7F7F7;color: #2A69FF;padding: 8px 11px;border-radius: 50%;transform: rotateZ(0deg);
+                    transition: 0.5s ease-out;box-shadow: inset 3px 2px 10px rgb(0,0,0,0.3);"></i>
+              </a>
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="container-fluid" id="doctors">
+    <br>
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-4" style="overflow: hidden;">
+                        <div style="width: 125px;height: 4px;
+                        background-color: #FF5E68;border-radius: 50px;margin-top: 10px;"></div>
+                    </div>
+                    <div class="col-8">
+                        <h4 style="color: #1D4197;">Doctors</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 style="font-family: 'Alata';font-weight: 600;">WE CARE ABOUT YOUR SMILE </h3>
+        <br>
+        <div class="container" style="text-align: center;">
+            <br>
+            <a data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample"
+            onclick="rotation1()"
+            style="background-color: #2A69FF;color: rgb(255, 255, 255);padding: 10px 5px 10px 8px;border-radius: 50px;
+            text-decoration:none;box-shadow: 3px 5px 10px rgb(0,0,0,0.3);">Know More
+                <i class="fas fa-caret-down" id="icon1"
+                    style="background-color: #F7F7F7;color: #2A69FF;padding: 8px 11px;border-radius: 50%;transform: rotateZ(0deg);
+                    transition: 0.5s ease-out;box-shadow: inset 3px 2px 10px rgb(0,0,0,0.3);"></i>
+              </a>
+        </div>
+    <br>
+</div>
+<br><br>
+<div class="container-fluid" id="blog">
+    <br>
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-4" style="overflow: hidden;">
+                        <div style="width: 125px;height: 4px;
+                        background-color: #FF5E68;border-radius: 50px;margin-top: 10px;"></div>
+                    </div>
+                    <div class="col-8">
+                        <h4 style="color: #1D4197;">BLOG</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 style="font-family: 'Alata';font-weight: 600;">WE CARE ABOUT YOUR LIFE </h3>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card" style="border: 0; border-radius: 20px;overflow: hidden;
+                    height: 430px;box-shadow: 0px 0px 20px rgb(0,0,0,0.2);
+                    background-color: #C2C2CE;cursor: pointer;">
+                        <img src="/images/h1.jpg" alt="" width="650px" style="position: relative;
+                        top: 0px;">
+                        <h1 style="color: #000000;font-family: 'Alata';font-weight: 600;
+                        letter-spacing: 10px;position: relative;top: -50px;left: 20px;">
+                            VIDEOS
+                        </h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card" style="border: 0; border-radius: 20px;overflow: hidden;
+                            height: 200px;box-shadow: 0px 0px 20px rgb(0,0,0,0.2);
+                            cursor: pointer;">
+                                <h1 style="color: #000000;font-family: 'Alata';font-weight: 600;
+                                letter-spacing: 10px;position: relative;top: 10px;left: 380px;z-index: 2;">
+                                    NEWS
+                                </h1>
+                                <img src="/images/h2.jpg" alt="" style="position: relative;top: -60px;">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card" style="border: 0; border-radius: 20px;overflow: hidden;
+                            height: 200px;box-shadow: 0px 0px 20px rgb(0,0,0,0.2);
+                            cursor: pointer;">
+                                <h1 style="color: #000000;font-family: 'Alata';font-weight: 600;
+                                letter-spacing: 10px;position: relative;top: 10px;left: 310px;z-index: 2;">
+                                    PHOTOS
+                                </h1>
+                                <img src="/images/h3.jpg" alt="" style="position: relative;top: -60px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br>
+</div><br><br>
+
+<div class="container-fluid" id="contactUs">
+    <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12"></div>
+                    <div class="col-lg-1 col-md-12" style="overflow: hidden;">
+                        <div style="width: 125px;height: 4px;
+                        background-color: #FF5E68;border-radius: 50px;margin-top: 10px;"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-12">
+                        <h4 style="color: #1D4197;margin-left: 8px;">CONTACT US</h4>
+                    </div>
+                    <div class="col-lg-1 col-md-12" style="overflow: hidden;">
+                        <div style="width: 125px;height: 4px;
+                        background-color: #FF5E68;border-radius: 50px;margin-top: 10px;"></div>
+                    </div>
+                </div>
+    </div>
+    <br>
+    <div class="container" style="width: 50%;">
+        <% if(loggedin == 0) { %>
+            <form action="/message" method="POST">
+                <div class="form-group">
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Enter your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your Email" required>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="text" name="phone_no" id="phone" class="form-control" minlength="10" maxlength="10" placeholder="Enter your Phone Number" required>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <select name="gender" class="form-control" id="gender">
+                                <option>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">Others</option>
+                            </select>
+                          </div>
+                    </div>
+                </div>
+              <div class="form-group">
+                <textarea name="description" id="" class="form-control" 
+                cols="30" rows="5" placeholder="Description" style="border-radius: 20px;" required></textarea>
+              </div>
+                  <br>
+                  <button type="submit" class="btn btn-primary" style="background-color: #1D4197; border: 0;
+                  box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                  padding: 8px;border-radius: 50px;">Message</button>
+            </form>
+        <% } else if(loggedin == 1) { %>
+            <form action="/<%= login_as %>/<%= data._id %>/<%= admin %>/<%= loggedin %>/message" method="POST">
+                <div class="form-group">
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Enter your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your Email" required>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="text" name="phone_no" id="phone" class="form-control" minlength="10" maxlength="10" placeholder="Enter your Phone Number" required>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <select name="gender" class="form-control" id="gender">
+                                <option>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">Others</option>
+                            </select>
+                          </div>
+                    </div>
+                </div>
+              <div class="form-group">
+                <textarea name="description" id="" class="form-control" 
+                cols="30" rows="5" placeholder="Description" style="border-radius: 20px;" required></textarea>
+              </div>
+                  <br>
+                  <button type="submit" class="btn btn-primary" style="background-color: #1D4197; border: 0;
+                  box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                  padding: 8px;border-radius: 50px;">Message</button>
+            </form>
+        <% } %>
+    </div>
+    <br><br>
+</div>
+<script>
+    function enterPin() {
+        var a = document.getElementById('pin2').value;
+        var b = document.getElementById('h1').value;
+        if(a.length == 6){
+            $.ajax({
+                    url:"/enterPinDoctor/" +b ,
+                    dataType: "jsonp",
+                    type:"GET",
+                    success: function(data){
+                        console.log(typeof data[0].pin);
+                        console.log(typeof a);
+                        if(data[0].pin != a){
+                            document.getElementById('enteredPin1').innerHTML = "Pin dosen't Matches";
+                            document.getElementById('enteredPin1').style.color = "rgb(255, 31, 31)";
+                            $('#verifyButton2').attr("disabled","disabled");
+                        } else {
+                            document.getElementById('enteredPin1').innerHTML = "";
+                            $('#verifyButton2').removeAttr("disabled");
+                        }
+                    },
+                    error: function(err){
+                    console.log(err.status);
+                    }
+            });
+        }
+    }
+    function enterPin1() {
+        var a = document.getElementById('pin8').value;
+        var b = document.getElementById('h2').value;
+        if(a.length == 6){
+            $.ajax({
+                    url:"/enterPinPatient/" +b ,
+                    dataType: "jsonp",
+                    type:"GET",
+                    success: function(data){
+                        console.log(typeof data[0].pin);
+                        console.log(typeof a);
+                        if(data[0].pin != a){
+                            document.getElementById('enteredPin2').innerHTML = "Pin dosen't Matches";
+                            document.getElementById('enteredPin2').style.color = "rgb(255, 31, 31)";
+                            $('#verifyButton3').attr("disabled","disabled");
+                        } else {
+                            document.getElementById('enteredPin2').innerHTML = "";
+                            $('#verifyButton3').removeAttr("disabled");
+                        }
+                    },
+                    error: function(err){
+                    console.log(err.status);
+                    }
+            });
+        }
+    }
+    function enterPin2() {
+        var a = document.getElementById('pin9').value;
+        var b = document.getElementById('h3').value;
+        if(a.length == 6){
+            $.ajax({
+                    url:"/enterPinAdmin/" +b ,
+                    dataType: "jsonp",
+                    type:"GET",
+                    success: function(data){
+                        console.log(typeof data[0].pin);
+                        console.log(typeof a);
+                        if(data[0].pin != a){
+                            document.getElementById('enteredPin3').innerHTML = "Pin dosen't Matches";
+                            document.getElementById('enteredPin3').style.color = "rgb(255, 31, 31)";
+                            $('#verifyButton4').attr("disabled","disabled");
+                        } else {
+                            document.getElementById('enteredPin3').innerHTML = "";
+                            $('#verifyButton4').removeAttr("disabled");
+                        }
+                    },
+                    error: function(err){
+                    console.log(err.status);
+                    }
+            });
+        }
+    }
+    function checkPin() {
+        var a = document.getElementById('cpin').value;
+        var b = document.getElementById('pin1').value;
+        if(a != b){
+            document.getElementById('checkingPin').innerHTML = "Pin dosen't Matches";
+            document.getElementById('checkingPin').style.color = "rgb(255, 31, 31)";
+            $('#verifyButton').attr("disabled","disabled");
+        } else {
+            document.getElementById('checkingPin').innerHTML = "";
+            $('#verifyButton').removeAttr("disabled");
+        }
+    }
+    function checkPin3() {
+        var a = document.getElementById('cpin3').value;
+        var b = document.getElementById('pin3').value;
+        if(a != b){
+            document.getElementById('checkingPin3').innerHTML = "Pin dosen't Matches";
+            document.getElementById('checkingPin3').style.color = "rgb(255, 31, 31)";
+            $('#verifyButton3').attr("disabled","disabled");
+        } else {
+            document.getElementById('checkingPin3').innerHTML = "";
+            $('#verifyButton3').removeAttr("disabled");
+        }
+    }
+    function checkPin4() {
+        var a = document.getElementById('cpin4').value;
+        var b = document.getElementById('pin4').value;
+        if(a != b){
+            document.getElementById('checkingPin4').innerHTML = "Pin dosen't Matches";
+            document.getElementById('checkingPin4').style.color = "rgb(255, 31, 31)";
+            $('#verifyButton4').attr("disabled","disabled");
+        } else {
+            document.getElementById('checkingPin4').innerHTML = "";
+            $('#verifyButton4').removeAttr("disabled");
+        }
+    }
+    function rotation() {
+            if(document.getElementById('icon0').style.transform == "rotateZ(0deg)"){
+                document.getElementById('icon0').style.transform = "rotateZ(180deg)";
+            } else{
+                document.getElementById('icon0').style.transform = "rotateZ(0deg)"
+            }
+            
+        }
+    function rotation1() {
+            if(document.getElementById('icon1').style.transform == "rotateZ(0deg)"){
+                document.getElementById('icon1').style.transform = "rotateZ(180deg)";
+            } else{
+                document.getElementById('icon1').style.transform = "rotateZ(0deg)"
+            }
+            
+        }
+    $('#day').change(function(){
+        var a = document.getElementById('day').value;
+        var select = document.getElementById("time");
+        var length = select.options.length;
+        for (i = length-1; i >= 0; i--) {
+            select.options[i] = null;
+        }
+        $.ajax({
+                url:"getTime/" + a,
+                dataType: "jsonp",
+                type:"GET",
+                success: function(data){
+                    var b = (data[0]).time;
+                    for(var i=0;i<b.length;i++){
+                        var option = document.createElement("option");
+                        option.text = b[i];
+                        option.value= b[i];
+                        select.add(option);
+                    } 
+                },
+                error: function(err){
+                  console.log(err.status);
+                }
+        });
+    });
+</script>
+<%- include footer %> 

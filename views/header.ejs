@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hospital management system</title>
+
+	<link rel = "icon" href = "/images/logo_hospital_white.png" type = "image/x-icon">
+
+	<!--Font Awesome Link-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+	<!---->
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="path/to/chartjs/dist/Chart.min.css">
+	
+	<!--Bootstrap CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+	crossorigin="anonymous">
+	<!---->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="/stylesheets/style.css">
+	<style type="text/css">
+		html body {
+			margin: 0;
+			padding: 0px;
+      font-family: 'Poppins', sans-serif;
+      background: url(/images/background.jpg);
+      background-repeat: no-repeat;
+      background-position: top;
+      background-color:#F7F7F7;
+      scroll-behavior: smooth;
+		}
+        .navbar {
+            background-color: #ffffff;
+            border-radius: 0px;
+            color: black;
+            box-shadow: 0px 0px 15px rgb(0,0,0,0.1);
+            transition: 0.5s ease-out;
+        }
+        .navbar-nav .nav-link {
+            font-size: 18px;
+            color: black;
+        }
+        .nav-item {
+            padding-left:10px;
+            margin: auto;
+        }
+        .dropdown-toggle::after {
+            content: none;
+        }
+        .dropdown-menu {
+          transform: translateX(-150px);
+        }
+        @media screen and (max-width: 768px) {
+          .dropdown-menu {
+          transform: translateX(0px);
+        }
+        }
+    </style>
+    <script>
+      function rotateImg() {
+        if(document.getElementById('img1').style.transform == "rotateZ(0deg)"){
+          document.getElementById('img1').style.transform = "rotateZ(180deg)";
+        } else {
+          document.getElementById('img1').style.transform = "rotateZ(0deg)";
+        }
+      }
+    </script>
+    
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#"><img src="/images/logo_hospital_black.png" alt="" width="40px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto" style="margin: auto;">
+            <li class="nav-item">
+              <a class="nav-link" style="color: black;" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: black;" href="#aboutUs">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: black;" href="#departments">Departments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: black;" href="#doctors">Doctors</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: black;" href="#blog">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: black;" href="#contactUs">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+        <% if(loggedin == 0){ %>
+          <ul class="navbar-nav">
+            <li class="nav-item" style="display: inline;">
+              <a class="nav-link" style="color: black;" href="/login">Login</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+              <li class="nav-item" style="display: inline;">
+                <a class="nav-link" style="color: black;" href="/signup">Sign-UP</a>
+              </li>
+          </ul>
+        <% } else { %>
+          <ul class="navbar-nav">
+            <li class="nav-item" style="display: inline;">
+              <a class="nav-link" href="#"><img src="/images/Group 6.png" alt="" width="30px"></a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+              <li class="nav-item" style="display: inline;">
+                <a class="nav-link" href="#"><img src="/images/bell.png" alt="" width="30px"></a>
+              </li>
+          </ul>
+          <ul class="navbar-nav">
+              <li class="nav-item dropdown" style="display: inline;">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" href="#"><img src="/images/setting.png" id="img1" onclick="rotateImg()" 
+                    alt="" width="30px" style="transform: rotateZ(0deg);transition: 0.8s ease-out;"></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown"> 
+                      <% if(admin == 1){ %>
+                        <a class="dropdown-item" href="#">Hi, Admin</a>
+                        <a class="dropdown-item" href="#pin5" data-toggle="modal">Admin Dashboard</a>
+                      <% } else { %>
+                        <% if(data != null){ %>
+                          <% if(login_as == 'doctor'){ %>
+                            <a class="dropdown-item" href="#">Hi, Dr. <%= data.name %></a>
+                          <% } else if(login_as == 'patient') { %>
+                            <a class="dropdown-item" href="#">Hi, <%= data.name %></a>
+                          <% } %>
+                        <% } %>
+                          <% if(login_as == 'doctor'){ %>
+                            <a class="dropdown-item" href="#pin" data-toggle="modal">Dashboard</a>
+                          <% } else if(login_as == 'patient') { %>
+                            <a class="dropdown-item" href="#pin6" data-toggle="modal">Dashboard</a>
+                          <% } %>
+                      <% } %>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+              </li>
+          </ul>
+        <% } %>   
+      </nav>
+
+      <a href="#makeAppointment" 
+      style="padding: 40px;position: fixed;bottom: -50px;
+      right: -30px;z-index: 5;" data-toggle="tooltip" data-placement="right" title="Make An Appointment">
+      <img class="img2" src="/images/a1.png" alt="" width="60px"></a>
+
+	<main id="main1">
+		<div class="container">
+			<%- messages('messages', locals) %>
+		
+			<% if(errors) {%>
+				<% errors.forEach(function(error){ %>
+				  <div class="alert alert-danger"><%= error.msg %></div>
+				<% }); %>
+		  <% } %>
+		</div>

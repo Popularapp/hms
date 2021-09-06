@@ -1,0 +1,167 @@
+<%- include('../layouts/patient_header') %>
+    <div class="row" style="padding: 20px;width: 100%;background-color: #ffffff;">
+        <div class="col-lg-4 col-md-12">
+            <div class="card card7">
+                <h5>Chats</h5>
+                <form action="" method="get" style="margin-top: 10px;">
+                    <div class="form-group">
+                        <input type="search" class="form-control" name="search" id="" placeholder="Search for Doctor ">
+                    </div>
+                </form>
+                <hr>
+                <div class="card card8">
+                    <% var counter = 0; %> 
+                    <% for(var i=0;i<(data.messages).length;i++){ %>
+                        <% counter++; %>
+                        <div class="card card9" style="margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-2">
+                                        <img src="/images/user1.png" alt="" width="45px"> 
+                                </div>
+                                <div class="col-10">
+                                    <a style="padding: 0px 15px;font-size: 15px;color: black;text-decoration: none;" data-toggle="collapse" href="#Collapse<%= counter %>"
+                                        role="button">Dr. <%= (data.messages)[i].doctor_name %></a>
+                                </div>
+                            </div>
+                        </div>
+                    <% }  %>
+                </div>
+            <a href="#addNewChat" data-toggle="modal" class="btn btn-primary" id="verifyButton" style="background-color: #1D4197; border: 0;
+            box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+            padding: 8px;border-radius: 50px;">Add New Chat</a>
+            </div>
+            <div class="modal fade" id="addNewChat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="border: 0;border-radius: 20px;">
+                    <div class="modal-header" style="background-color: #42498d;border-radius: 20px 20px 0px 0px;">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 300;text-align: center;color: white;">Add a New Chat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: white;">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <% for(var j = 0 ; j<doctors.length;j++) { %>
+                            <% for( var k =0;k<(data.messages).length;k++) { %>
+                                <% if(JSON.stringify((data.messages)[k].doctor_id) === JSON.stringify(doctors[j]._id)){ %>
+                                    <% doctors.splice(j,1); %> 
+                                <% }%>     
+                            <% }; %>
+                        <% }; %>
+                    <form action="/patient/chats/<%= data._id %>/add-chat" method="POST">
+                        <div class="form-group">
+                            <select name="doctor" class="form-control" id="doctor">
+                                <option>Select Doctor</option>
+                                <% for(var j = 0 ; j<doctors.length;j++) { %>
+                                    <option value="<%= doctors[j]._id %>">Dr. <%= doctors[j].name %>(<%= doctors[j].department%>)</option>
+                                <% }; %>
+                            </select>
+                          </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary" id="verifyButton" style="background-color: #1D4197; border: 0;
+                        box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                        padding: 8px;border-radius: 50px;">Add</button>
+                    </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="card card7"> 
+                <% var counter1 = 0; %> 
+                <% for(var i=0;i<(data.messages).length;i++){ %>
+                    <% counter1++; %> 
+                    <div class="collapse" id="Collapse<%= counter1 %>">
+                        <h5><%= (data.messages)[i].doctor_name %></h5>
+                        <hr> 
+                        <div class="card card11">
+                            <% if((((data.messages)[i].p_messages).length >= ((data.messages)[i].d_messages).length)) { %>
+                                <% for(var j=0;j<((data.messages)[i].p_messages).length;j++){ %>
+                                    <br>
+                                    <% if(((data.messages)[i].p_messages)[0] != null){ %>
+                                        <div class="row">
+                                            <div class="col-2"></div>
+                                            <div class="col-10">
+                                                <div class="card card10">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <p style="padding: 0px 15px;font-size: 15px;"><%= (((data.messages)[i].p_messages)[j]).message %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                    <br>
+                                    <% if(((data.messages)[i].d_messages)[0] != null){ %>
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <div class="card card9">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                                <p style="padding: 0px 15px;font-size: 15px;"><%= (((data.messages)[i].d_messages)[j]).message %></p> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                            <% } else if(((data.messages)[i].p_messages).length < ((data.messages)[i].d_messages).length){%>
+                                <% for(var j=0;j<((data.messages)[i].d_messages).length;j++){ %>
+                                    <br>
+                                    <% if(((data.messages)[i].p_messages)[0] != null){ %>
+                                        <div class="row">
+                                            <div class="col-2"></div>
+                                            <div class="col-10">
+                                                <div class="card card10">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <p style="padding: 0px 15px;font-size: 15px;"><%= (((data.messages)[i].p_messages)[j]).message %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                    <br>
+                                    <% if(((data.messages)[i].d_messages)[0] != null){ %>
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <div class="card card9">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                                <p style="padding: 0px 15px;font-size: 15px;"><%= (((data.messages)[i].d_messages)[j]).message %></p> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                            <% } %> 
+                        </div>
+                        <div class="row">
+                            <div class="col-11">
+                                <form action="/patient/chats/<%= data._id %>/add-message/<%= (data.messages)[i].doctor_id %>" method="get" style="margin-top: 10px;">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="search" id="" placeholder="Type your message">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-1" style="margin-top: 20px;">
+                                <a href="#" style="text-decoration: none;background-color: #0e6fbe;
+                                color: white;padding: 9px 12px;border-radius: 50%;"><i class="fas fa-paper-plane"></i></a>
+                            </div>
+                        </div>
+                            </div>
+                <% }; %>
+            </div>
+        </div>
+    </div>
+
+<%- include('../layouts/patient_footer') %>

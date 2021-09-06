@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hospital management system</title>
+
+	<link rel = "icon" href = "/images/logo_hospital_white.png" type = "image/x-icon">
+
+	<!--Font Awesome Link-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"/>
+	<!---->
+	<link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="path/to/chartjs/dist/Chart.min.css">
+	
+	<!--Bootstrap CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+	crossorigin="anonymous">
+	<!---->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="/stylesheets/dashboard_style.css">
+	<style type="text/css">
+		html body {
+			margin: 0;
+			padding: 0;
+			font-family: 'Alata', sans-serif;
+			background:#21177a;
+			font-size: 16px;
+		}
+    </style>
+    <script>
+        function openNav(){
+            if(document.getElementById('main1').style.marginLeft == "0rem") {
+                document.getElementById('main1').style.marginLeft = "10rem";
+                document.getElementById('one').style.transform = "rotateZ(45deg) translateY(11px)";
+                document.getElementById('three').style.transform = "rotateZ(-45deg) translateY(-11px)";
+                document.getElementById('two').style.transform = "translateX(-100px)";
+				document.getElementById('navbar2').style.left = "0px";
+				document.getElementById('admin_img').style.left = "-30px";
+				document.getElementById('main1').style.borderTopLeftRadius = "0px";
+            } else {
+                document.getElementById('main1').style.marginLeft = "0rem";
+                document.getElementById('one').style.transform = "rotateZ(0deg)";
+                document.getElementById('three').style.transform = "rotateZ(0deg)";
+                document.getElementById('two').style.transform = "translateX(0px)";
+				document.getElementById('navbar2').style.left = "-300px";
+				document.getElementById('admin_img').style.left= "-200px";
+				document.getElementById('main1').style.borderTopLeftRadius = "150px";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="hamburger" style="margin-top: 10px;
+        cursor: pointer;" onclick="openNav()">
+            <div id="one"></div>
+            <div id="two"></div>
+            <div id="three"></div>
+        </div>
+	<nav class="navbar1" id="navbar2">
+		<ul class="navbar-nav1">
+            <br>
+			<li class="logo1">
+                <a href="/patient/dashboard/<%= data._id %>" class="nav-link1">
+                    <img src="/images/logo_hospital_white.png" class="img1" alt="" width="50px" height="50px">
+				</a>
+			</li>
+			<li class="nav-item1" style="
+            margin-top: 20px;">
+				<a href="/patient/dashboard/<%= data._id %>" class="nav-link1">
+					<span class="link-text1">Dashboard</span>
+				</a>
+			</li>
+			<li class="nav-item1">
+				<a href="/admin/doctors/<%= data._id %>" class="nav-link1">
+					<span class="link-text1">Appointments</span>
+				</a>
+			</li>
+			<li class="nav-item1">
+				<a href="/admin/doctors/<%= data._id %>" class="nav-link1">
+					<span class="link-text1">Prescription</span>
+				</a>
+			</li>
+			<li class="nav-item1">
+				<a href="/patient/chats/<%= data._id %>" class="nav-link1">
+					<span class="link-text1">Chats</span>
+				</a>
+			</li>
+			<li class="nav-item1">
+				<a href="/patient/<%= data._id %>/0/1" class="nav-link1">
+					<span class="link-text1">Home Page</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="container-fluid">
+		<img src="/images/admin_img1.png" id="admin_img" alt="" width="15%">
+	</div>
+
+	<div class="row" id="row5">
+		<div class="col-2" style="padding: 8px">
+			<img src="/images/user3.png" alt="" width="45px">
+		</div>
+		<div class="col-10" style="padding: 5px;text-align: right;">
+			<h5 style="padding: 10px 20px;color: white;">Hi,<%= data.name %> 
+			<span style="margin-left: 10px;">
+				<a href="/logout" style="color:white"><i class="fas fa-sign-out-alt"></i></a>
+			</span>
+			</h5>
+		</div>
+	</div>
+
+	<main id="main1">
+		<div class="container">
+			<%- messages('messages', locals) %>
+		
+			<% if(errors) {%>
+				<% errors.forEach(function(error){ %>
+				  <div class="alert alert-danger"><%= error.msg %></div>
+				<% }); %>
+		  	<% } %>
+		</div>

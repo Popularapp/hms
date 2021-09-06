@@ -1,0 +1,134 @@
+<%- include('../layouts/admin_header') %>
+<br>
+<h3 style="text-align: center;">DEPARTMENTS</h3>
+<a href="#adddepartment" style="text-decoration: none;background-color: #252d77;
+color: white;padding: 0px 16px 3px 16px;border-radius: 50%;font-size: 40px;
+position: fixed;right: 30px;bottom: 30px;box-shadow: 0px 0px 20px rgb(0,0,0,0.5);
+z-index: 2;" data-toggle="modal">+</a>
+<div class="modal fade" id="adddepartment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="border: 0;border-radius: 20px;">
+      <div class="modal-header" style="background-color: #1b8d82;border-radius: 20px 20px 0px 0px;">
+        <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 300;text-align: center;color: white;">Add New Department</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white;">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <form action="/admin/departments/<%= data._id %>/new-department" method="POST">
+          <div class="form-group">
+              <input type="text" name="title" id="" class="form-control" placeholder="Enter the Name of Department" required >
+          </div>
+          <div class="form-group">
+            <textarea name="description" id="" class="form-control" cols="30" rows="5" placeholder="Description" required></textarea>
+          </div>
+          <br>
+  
+          <button type="submit" class="btn btn-primary" id="verifyButton" style="background-color: #1D4197; border: 0;
+          box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+          padding: 8px;border-radius: 50px;">Add</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" name="" id="data" value="<%= data._id %> ">
+<table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">S.No</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Title</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Description</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Options</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% var i = 0; %> 
+        <% department.forEach(element =>{ %>
+            <% i++; %> 
+        <tr>
+            <th scope="row"><%= i %> </th>
+            <td><%= element.title %> </td>
+            <td style="text-align: justify;"><%= element.explanation %></td>
+            <td>
+              <br>
+              <div class="row">
+                <div class="col-5"><a href="#editDepartment<%= i %>" style="text-decoration: none;background-color: #0e6fbe;
+                  color: white;padding: 5px 8px;border-radius: 50%;" data-toggle="modal"><i class="fas fa-pencil-alt"></i></a>
+                  <div class="modal fade" id="editDepartment<%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content" style="border: 0;border-radius: 20px;">
+                        <div class="modal-header" style="background-color: #42498d;border-radius: 20px 20px 0px 0px;">
+                          <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 300;text-align: center;color: white;">Edit Department</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="color: white;">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body" style="text-align: center;">
+                          <form action="/admin/departments/<%= data._id %>/edit-department/<%= element._id %> " method="POST">
+                            <div class="form-group">
+                                <input type="text" name="title" id="" class="form-control" placeholder="Enter the Name of Department" value="<%= element.title %>" required >
+                            </div>
+                            <div class="form-group">
+                              <textarea name="description" id="" class="form-control" cols="30" rows="5" placeholder="Description" required>
+                                <%= element.explanation %>
+                              </textarea>
+                            </div>
+                            <br>
+                    
+                            <button type="submit" class="btn btn-primary" id="verifyButton" style="background-color: #1D4197; border: 0;
+                            box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                            padding: 8px;border-radius: 50px;">Edit</button>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                <div class="col-6">
+                  <a href="#deleteDepartment<%= i %>" style="text-decoration: none;background-color: #e04956;
+                color: white;padding: 5px 9px;border-radius: 50%;" data-toggle="modal"><i class="fas fa-trash"></i></a>
+
+                <div class="modal fade" id="deleteDepartment<%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" style="border: 0;border-radius: 20px;">
+                      <div class="modal-header" style="background-color: #42498d;border-radius: 20px 20px 0px 0px;">
+                        <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 300;text-align: center;color: white;">Delete "<%= element.title %>" </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true" style="color: white;">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" style="text-align: center;">
+                        <div>
+                          <h6>Are you sure you want to delete this</h6>
+                          <br>
+                          <div class="container" style="width: 50%;">
+                            <div class="row">
+                              <div class="col-6" style="text-align: center;"><a href="/admin/departments/deleteDepartment/<%= element._id %>/<%= data._id %>" style="text-decoration: none;background-color: #0e6fbe;
+                                color: white;padding: 5px 20px;border-radius: 50px;">Yes</a>
+                                </div>
+                                <div class="col-6" style="text-align: center;"><a href="#" style="text-decoration: none;background-color: #e04956;
+                                  color: white;padding: 5px 20px;border-radius: 50px;" data-dismiss="modal">No</a>
+                                  </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+                
+            </td>
+        </tr>
+        <% }); %> 
+    </tbody>
+  </table>
+<br>
+<br><br>
+
+<script>
+</script>
+    
+<%- include('../layouts/admin_footer') %>

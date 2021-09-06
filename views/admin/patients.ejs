@@ -1,0 +1,316 @@
+<%- include('../layouts/admin_header') %>
+<br>
+<h3 style="text-align: center;">PATIENTS</h3>
+<a href="#addpatient" style="text-decoration: none;background-color: #252d77;
+color: white;padding: 0px 16px 3px 16px;border-radius: 50%;font-size: 40px;
+position: fixed;right: 30px;bottom: 30px;box-shadow: 0px 0px 20px rgb(0,0,0,0.5);
+z-index: 2;" data-toggle="modal">+</a>
+<div class="modal fade" id="addpatient" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="border: 0;border-radius: 20px;">
+        <div class="modal-header" style="background-color: #1b8d82;border-radius: 20px 20px 0px 0px;">
+          <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 300;text-align: center;color: white;">Add New Department</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color: white;">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+            <form action="/admin/patients/<%= data._id %>/add-patient" method="POST">
+                <div class="form-group">
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Enter your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" id="email" onkeyup="checkEmail()" class="form-control" placeholder="Enter your Email" required>
+                    <small id="checkingEmail" class="form-text" style="text-align: center;"></small>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="phone_no" id="phone" onkeyup="checkPhone()" class="form-control" minlength="10" maxlength="10" placeholder="Enter your Phone Number" required>
+                    <small id="checkingPhone" class="form-text" style="text-align: center;"></small>
+                  </div>
+                  <div class="form-group">
+                      <input type="password" name="password" id="password" class="form-control" placeholder="Enter a eight letter password" minlength="8" maxlength="8" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="cpassword" onkeyup="check()" id="cpassword" class="form-control" placeholder="Confirm password" minlength="8" maxlength="8" required>
+                    <small id="checking" class="form-text" style="text-align: center;"></small>
+                </div>
+                <p style="text-align: center;">Enter Your Age and Date of Birth</p>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <input type="number" name="age" id="age" class="form-control" placeholder="Age" required>
+                        </div>        
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <input type="date" name="dob" id="dob" class="form-control" required>
+                        </div>        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select name="gender" class="form-control" id="gender">
+                        <option>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="others">Others</option>
+                    </select>
+                  </div>
+                  <br>
+                  <button type="submit" class="btn btn-primary" id="verifyButton" style="background-color: #1D4197; border: 0;
+                  box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                  padding: 8px;border-radius: 50px;">Add</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<input type="hidden" name="" id="data" value="<%= data._id %> ">
+<table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">S.No</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Name</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Email</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Phone Number</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Age</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">DOB</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Gender</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Appointments</th>
+        <th scope="col" style="background-color:#42498d;color: white;font-weight: 300;letter-spacing: 1px;">Options</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% var i = 0; %> 
+        <% patient.forEach(element =>{ %>
+            <% i++; %> 
+        <tr>
+            <th scope="row"><%= i %> </th>
+            <td><%= element.name %> </td>
+            <td style="text-align: justify;"><%= element.email %></td>
+            <td style="text-align: justify;"><%= element.phone_no %></td>
+            <td style="text-align: justify;"><%= element.age %></td>
+            <td style="text-align: justify;"><%= element.dob %></td>
+            <td style="text-align: justify;"><%= element.gender %></td>
+            <td>
+                <div class="row">
+                  <div class="col-12"><a href="#appointments<%= i %>" style="text-decoration: none;background-color: #494cca;
+                    color: white;padding: 8px 50px;border-radius: 50px;width: 100%;" data-toggle="modal"><i class="fas fa-calendar-check"></i></a>
+                    <div class="modal fade" id="appointments<%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content" style="border: 0;border-radius: 20px;">
+                          <div class="modal-header" style="background-color: #42498d;border-radius: 20px 20px 0px 0px;">
+                            <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 300;text-align: center;color: white;"><%= element.name %>'s Appointments</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color: white;">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" style="text-align: center;">
+                            <h4><%= element.appointments %> </h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                  
+              </td>
+            <td>
+              <div class="row">
+                <div class="col-4"><a href="#editPatient<%= i %>" style="text-decoration: none;background-color: #0e6fbe;
+                  color: white;padding: 5px 8px;border-radius: 50%;" data-toggle="modal"><i class="fas fa-pencil-alt"></i></a>
+                  <div class="modal fade" id="editPatient<%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content" style="border: 0;border-radius: 20px;">
+                        <div class="modal-header" style="background-color: #42498d;border-radius: 20px 20px 0px 0px;">
+                          <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 300;text-align: center;color: white;">Edit Patient</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="color: white;">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body" style="text-align: center;">
+                          <form action="/admin/patients/<%= data._id %>/edit-patient/<%= element._id %>" method="POST">
+                            <div class="form-group">
+                              <input type="text" name="name" id="name" class="form-control" placeholder="Enter your Name" value="<%= element.name %>" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" class="form-control" value="<%= element.email %>" placeholder="Enter your Email" required>
+                                <small id="checkingEmail" class="form-text" style="text-align: center;"></small>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="phone_no" id="phone" class="form-control" minlength="10" maxlength="10" value="<%= element.phone_no %>" placeholder="Enter your Phone Number" required>
+                                <small id="checkingPhone" class="form-text" style="text-align: center;"></small>
+                              </div>
+                            <p style="text-align: center;">Age and Date of Birth</p>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <input type="number" name="age" id="age" class="form-control" value=<%= element.age %> placeholder="Age" required>
+                                    </div>        
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <input type="date" name="dob" id="dob" class="form-control" value=<%= element.dob %> required>
+                                    </div>        
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <select name="gender" class="form-control" id="gender">
+                                    <option value="<%= element.gender %>"><%= element.gender %></option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="others">Others</option>
+                                </select>
+                              </div>
+                              <br>
+                              <button type="submit" class="btn btn-primary" id="verifyButton" style="background-color: #1D4197; border: 0;
+                              box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                              padding: 8px;border-radius: 50px;">Edit</button>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-4"><a href="#messagePatient<%= i %>" style="text-decoration: none;background-color: #0baf62;
+                    color: white;padding: 5px 8px;border-radius: 50%;" data-toggle="modal"><i class="fas fa-comment-alt"></i></a>
+                    <div class="modal fade" id="messagePatient<%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content" style="border: 0;border-radius: 20px;">
+                          <div class="modal-header" style="background-color: #42498d;border-radius: 20px 20px 0px 0px;">
+                            <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 300;text-align: center;color: white;">Message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color: white;">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" style="text-align: center;">
+                            <form action="/admin/departments/<%= data._id %>/message-patient/<%= element._id %>" method="POST">
+                              <div class="form-group">
+                                <select name="type" class="form-control" id="gender">
+                                    <option>Type of message</option>
+                                    <option value="phone">Phone</option>
+                                    <option value="email">Email</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <textarea name="message" id="" class="form-control" cols="30" rows="5" placeholder="Message" style="border-radius: 20px;" required>
+                                  Your Message
+                                </textarea>
+                              </div>
+                              <br>
+                      
+                              <button type="submit" class="btn btn-primary" id="verifyButton" style="background-color: #1D4197; border: 0;
+                              box-shadow: 8px 8px 10px rgb(0,0,0,0.2);width: 100%;
+                              padding: 8px;border-radius: 50px;">Send</button>
+                          </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                <div class="col-4">
+                  <a href="#deleteDepartment<%= i %>" style="text-decoration: none;background-color: #e04956;
+                color: white;padding: 5px 9px;border-radius: 50%;" data-toggle="modal"><i class="fas fa-trash"></i></a>
+
+                <div class="modal fade" id="deleteDepartment<%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" style="border: 0;border-radius: 20px;">
+                      <div class="modal-header" style="background-color: #42498d;border-radius: 20px 20px 0px 0px;">
+                        <h5 class="modal-title" id="exampleModalLongTitle" style="font-family: 'Alata';font-weight: 300;text-align: center;color: white;">Delete "<%= element.name %>" </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true" style="color: white;">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" style="text-align: center;">
+                        <div>
+                          <h6>Are you sure you want to delete this.<br>
+                        Because it will delete all the details regarding this patient</h6>
+                          <br>
+                          <div class="container" style="width: 50%;">
+                            <div class="row">
+                              <div class="col-6" style="text-align: center;"><a href="/admin/patients/deletepatient/<%= element._id %>/<%= data._id %>" style="text-decoration: none;background-color: #0e6fbe;
+                                color: white;padding: 5px 20px;border-radius: 50px;">Yes</a>
+                                </div>
+                                <div class="col-6" style="text-align: center;"><a href="#" style="text-decoration: none;background-color: #e04956;
+                                  color: white;padding: 5px 20px;border-radius: 50px;" data-dismiss="modal">No</a>
+                                  </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+                
+            </td>
+        </tr>
+        <% }); %> 
+    </tbody>
+  </table>
+<br>
+
+<script>
+    function check() {
+            var a = document.getElementById('cpassword').value;
+            var b = document.getElementById('password').value;
+            if(a != b){
+                document.getElementById('checking').innerHTML = "Password dosen't Matches";
+                document.getElementById('checking').style.color = "rgb(255, 31, 31)";
+                $('#verifyButton').attr("disabled","disabled");
+            } else {
+                document.getElementById('checking').innerHTML = "";
+                document.getElementById('checking').style.color = "rgb(35, 245, 70)";
+                $('#verifyButton').removeAttr("disabled");
+            }
+    }
+    function checkEmail() {
+           var b = document.getElementById('email').value;
+                $.ajax({
+                    url:"/searchEmail/" + b,
+                    dataType: "jsonp",
+                    type:"GET",
+                    success: function(data){
+                        console.log(data[0]);
+                        if(data[0] != undefined){ 
+                            document.getElementById('checkingEmail').innerHTML = "Email Already Exists";
+                            document.getElementById('checkingEmail').style.color = "rgb(255, 31, 31)";
+                            $('#verifyButton').attr("disabled","disabled");
+                        } else {
+                            document.getElementById('checkingEmail').innerHTML = "";
+                            $('#verifyButton').removeAttr("disabled");
+                        }
+                    },
+                    error: function(err){
+                    console.log(err.status);
+                    }
+            });
+       }
+       function checkPhone() {
+           var b = document.getElementById('phone').value;
+           if(b.length == 10){
+                    $.ajax({
+                        url:"/searchPhone/" + b,
+                        dataType: "jsonp",
+                        type:"GET",
+                        success: function(data){
+                            console.log(data[0]);
+                            if(data[0] != undefined){ 
+                                document.getElementById('checkingPhone').innerHTML = "Phone Number Already Exists";
+                                document.getElementById('checkingPhone').style.color = "rgb(255, 31, 31)";
+                                $('#verifyButton').attr("disabled","disabled");
+                            } else {
+                                document.getElementById('checkingPhone').innerHTML = "";
+                                $('#verifyButton').removeAttr("disabled");
+                            }
+                        },
+                        error: function(err){
+                        console.log(err.status);
+                        }
+                });
+           }
+       }
+</script>
+<%- include('../layouts/admin_footer') %>
